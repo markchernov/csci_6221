@@ -18,6 +18,7 @@ let style = {j|
     border: none;
     padding: 8px;
     font-size: 16px;
+    margin-left: 10px;
   }
   button:active {
     background-color: $reasonReactBlue;
