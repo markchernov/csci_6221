@@ -2,7 +2,7 @@
   "name": "csci_6221",
   "version": "0.1.0",
   "scripts": {
-    "build": "bsb -make-world && webpack && cp indexProduction.html ./bundleOutput/index.html",
+    "build": "bsb -make-world && webpack && cp indexProduction.html ./bundleOutput/index.html && cp favicon.ico ./bundleOutput/favicon.ico",
     "start": "bsb -make-world -w -ws _ ",
     "clean": "bsb -clean-world",
     "server": "moduleserve ./ --port 8000",
