@@ -6,7 +6,6 @@ let make = () => {
   let (currentItems: list(Types.listItem), setCurrentItems) = React.useState(() => []);
 
   let onValueChange = _event => {
-    Js.log("Current Todo: " ++ currentTodo);
     let newValue = _event -> ReactEvent.Form.target##value;
     Js.log("New Value: " ++ newValue);
     setCurrentTodo(_ => newValue);
@@ -14,12 +13,16 @@ let make = () => {
 
   let onAddTodoClick = _event => { 
     Js.log("Add todo clicked!");
-    let itemId =  Random.int(100);
-    setCurrentItems(_ => [{id: itemId, name: currentTodo}, ...currentItems]);
+    setCurrentItems(_ => [{id: Random.int(1000), name: currentTodo}, ...currentItems]);
     setCurrentTodo(_ => "");
   };
+
+  let onDeleteTodoClick = id =>  { 
+    Js.log("Delete todo clicked! Id: " ++ string_of_int(id));
+    let updatedItems = Belt.List.keep(currentItems, item => item.id != id);
+    setCurrentItems(_ => updatedItems);
+  };
    
-  
   <div style={ReactDOMRe.Style.make(
       ~height="2em",
       ~display="flex",
@@ -38,6 +41,6 @@ let make = () => {
       <InputTodo onValueChange currentValue=currentTodo/>
       <AddTodo onAddTodoClick />
     </div>
-   <TodoList items = Array.of_list(currentItems) />
+    <TodoList items=Array.of_list(currentItems)  onDeleteTodoClick  />
   </div>
 }
