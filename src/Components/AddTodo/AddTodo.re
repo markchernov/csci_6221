@@ -1,2 +1,4 @@
 [@react.component]
-let make = () =>  <button> {ReasonReact.string("Add todo!")} </button>;
+let make = (~onAddTodoClick ) =>  {
+    <button onClick=onAddTodoClick > {ReasonReact.string("Add todo!")} </button>;
+}

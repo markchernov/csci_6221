@@ -1,6 +1,9 @@
 [@react.component]
 let make = (~items: Types.arrayData) => 
-    <ul>
+    <ul style={ReactDOMRe.Style.make(
+      ~paddingTop="1em",
+      (),
+    )}>
     {
       items
       ->Belt.Array.map(item =>

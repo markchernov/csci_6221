@@ -27,7 +27,7 @@ let makeContainer = text => {
 };
 
 ReactDOMRe.render(
-  <TodoApp name="todo"/>,
+  <TodoApp />,
   makeContainer("Todos App"),
 );
 

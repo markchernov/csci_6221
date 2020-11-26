@@ -1,30 +1,43 @@
-let todo1: Types.listItem = {
-  id: 41,
-  name: "ABC",
-};
-let todo2: Types.listItem = {
-  id: 42,
-  name: "QWE",
-};
-let todo3: Types.listItem = {
-  id: 43,
-  name: "XYZ",
-};
-
-let exampleList: Types.arrayData = Array.of_list([todo1, todo2, todo3]);
-
-
 [@react.component]
-let make = (~name) => {
+let make = () => {
+  // state of text input
+  let (currentTodo, setCurrentTodo) = React.useState(() => "");
+  // state of items list
+  let (currentItems: list(Types.listItem), setCurrentItems) = React.useState(() => []);
+
+  let onValueChange = _event => {
+    Js.log("Current Todo: " ++ currentTodo);
+    let newValue = _event -> ReactEvent.Form.target##value;
+    Js.log("New Value: " ++ newValue);
+    setCurrentTodo(_ => newValue);
+  }
+
+  let onAddTodoClick = _event => { 
+    Js.log("Add todo clicked!");
+    let itemId =  Random.int(100);
+    setCurrentItems(_ => [{id: itemId, name: currentTodo}, ...currentItems]);
+    setCurrentTodo(_ => "");
+  };
+   
+  
   <div style={ReactDOMRe.Style.make(
       ~height="2em",
       ~display="flex",
-      ~alignItems="center",
+      ~alignItems="start",
+      ~justifyContent="flex-start",
+      ~flexDirection="column",
+      (),
+    )}>
+    <div style={ReactDOMRe.Style.make(
+      ~height="2em",
+      ~display="flex",
+      ~alignItems="start",
       ~justifyContent="flex-start",
       (),
     )}>
-   <InputTodo />
-   <AddTodo />
-   <TodoList  items = exampleList />
+      <InputTodo onValueChange currentValue=currentTodo/>
+      <AddTodo onAddTodoClick />
+    </div>
+   <TodoList items = Array.of_list(currentItems) />
   </div>
 }
