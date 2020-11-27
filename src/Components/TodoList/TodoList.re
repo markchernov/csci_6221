@@ -1,5 +1,5 @@
 [@react.component]
-let make = (~items: Types.arrayData, ~onDeleteTodoClick) => 
+let make = (~items: Types.arrayData, ~onDeleteTodoClick, ~onEditTodoClick) => 
     <div style={ReactDOMRe.Style.make(
       ~paddingTop="2em",
       (),
@@ -12,7 +12,7 @@ let make = (~items: Types.arrayData, ~onDeleteTodoClick) =>
            ~alignItems="center",
            ~justifyContent="left",
            (),
-         )} > <DisplayTodo item onDeleteTodoClick/></div>
+         )} > <DisplayTodo item onDeleteTodoClick onEditTodoClick/></div>
         )     
       ->React.array
     }

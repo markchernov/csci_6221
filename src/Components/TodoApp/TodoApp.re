@@ -17,6 +17,11 @@ let make = () => {
     setCurrentTodo(_ => "");
   };
 
+  let onEditTodoClick = (id, newName) =>  { 
+    Js.log("Edit todo clicked! Id: " ++ string_of_int(id) ++ " Value: " ++ newName);
+    setCurrentItems(_ => ListAPI.editItem(id, newName));
+  };
+
   let onDeleteTodoClick = id =>  { 
     Js.log("Delete todo clicked! Id: " ++ string_of_int(id));
     setCurrentItems(_ => ListAPI.deleteItem(id));
@@ -38,8 +43,8 @@ let make = () => {
       (),
     )}>
       <InputTodo onValueChange currentValue=currentTodo/>
-      <AddTodo onAddTodoClick />
+      <AddTodoButton onAddTodoClick />
     </div>
-    <TodoList items=Array.of_list(currentItems)  onDeleteTodoClick  />
+    <TodoList items=Array.of_list(currentItems)  onDeleteTodoClick  onEditTodoClick />
   </div>
 }
