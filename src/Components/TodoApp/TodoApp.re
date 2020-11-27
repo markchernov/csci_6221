@@ -3,7 +3,7 @@ let make = () => {
   // state of text input
   let (currentTodo, setCurrentTodo) = React.useState(() => "");
   // state of items list
-  let (currentItems: list(Types.listItem), setCurrentItems) = React.useState(() => []);
+  let (currentItems, setCurrentItems) = React.useState(() => ListAPI.fetchListItems());
 
   let onValueChange = _event => {
     let newValue = _event -> ReactEvent.Form.target##value;
@@ -13,14 +13,13 @@ let make = () => {
 
   let onAddTodoClick = _event => { 
     Js.log("Add todo clicked!");
-    setCurrentItems(_ => [{id: Random.int(1000), name: currentTodo}, ...currentItems]);
+    setCurrentItems(_ => ListAPI.createNewItem(currentTodo));
     setCurrentTodo(_ => "");
   };
 
   let onDeleteTodoClick = id =>  { 
     Js.log("Delete todo clicked! Id: " ++ string_of_int(id));
-    let updatedItems = Belt.List.keep(currentItems, item => item.id != id);
-    setCurrentItems(_ => updatedItems);
+    setCurrentItems(_ => ListAPI.deleteItem(id));
   };
    
   <div style={ReactDOMRe.Style.make(
